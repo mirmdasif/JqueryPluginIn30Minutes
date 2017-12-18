@@ -3,15 +3,15 @@
 
     function Tooltip(el) {
         this.$el = el;
+        this.generate();
+    }
+
+    Tooltip.prototype.generate = function() {
+        // Code here
     }
 
     $.fn.wTooltip = function() {
-
-        function get() {
-            return $.data(this, 'wTooltip') || $.data(this, 'wTooltip', new Tooltip(this));
-        }
-
-        return this.each(get);
+        // Code here
     };
 
     $.fn.opacity50 = function() {
