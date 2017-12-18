@@ -3,13 +3,17 @@
     <head>
     </head>
     <body>
-        <h1 id="header">Hello Jquery Plugin</h1>
+        <h1 id="header" class="opacity50">Hello Jquery Plugin</h1>
+        <h2 id="header2" class="opacity50">Hello Jquery Plugin</h2>
+        <h3 id="header2" class="opacity50">Hello Jquery Plugin</h3>
     </body>
     <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="wTooltip.js"></script>
 
     <script type="text/javascript">
+        $(".opacity50").opacity50();
+        console.log($("#header").data('wTooltip'));
         $("#header").wTooltip();
-        $("#header").opacity50();
+        console.log($("#header").data('wTooltip'));
     </script>
 </html>
