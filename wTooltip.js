@@ -21,7 +21,6 @@
         this.$el.mousemove(elMouseMove);
 
         function elMouseMove(e) {
-            console.log("Mouse Moveed" + e);
             _this.$toolTip.css({left: e.pageX, top: e.pageY});
         }
     }
@@ -38,7 +37,7 @@
         this.$toolTip.css('color', color);
 
         if(this.initialized) {
-            console.log("Changed color of initialized object");
+            
         }
     };
 

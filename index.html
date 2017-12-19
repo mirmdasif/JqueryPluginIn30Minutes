@@ -3,17 +3,27 @@
     <head>
     </head>
     <body>
-        <h1 id="header" class="opacity50">Hello Jquery Plugin</h1>
+        <h1 id="header1" class="opacity50">Hello Jquery Plugin</h1>
         <h2 id="header2" class="opacity50">Hello Jquery Plugin</h2>
-        <h3 id="header2" class="opacity50">Hello Jquery Plugin</h3>
+        <h3 id="header3" class="opacity50">Hello Jquery Plugin</h3>
     </body>
     <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="wTooltip.js"></script>
 
     <script type="text/javascript">
-        $(".opacity50").opacity50();
-        console.log($("#header").data('wTooltip'));
-        $(".opacity50").wTooltip();
-        console.log($("#header").data('wTooltip'));
+        $(function() {
+
+            $('#header2').click(function (e) {
+                console.log(this);
+                console.log(e.target);
+                console.log(e.currentTarget);
+            });
+
+            $('.opacity50').opacity50();
+
+            console.log($('#header1').data('wTooltip'));
+            $('#header1').wTooltip();
+            console.log($('#header1').data('wTooltip'));
+        });
     </script>
 </html>
