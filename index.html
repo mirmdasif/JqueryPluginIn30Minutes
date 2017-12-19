@@ -14,10 +14,23 @@
         $(function() {
 
             $('#header2').click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
                 console.log(this);
                 console.log(e.target);
                 console.log(e.currentTarget);
             });
+
+            $('#header2').bind('click.first', function() {
+                console.log("First click callback");
+            });
+
+            $('#header2').bind('click.second', function() {
+                console.log("Second click callback");
+            });
+
+            // Disabling second click
+            $('#header2').unbind('click.second');            
 
             $('.opacity50').opacity50();
 
