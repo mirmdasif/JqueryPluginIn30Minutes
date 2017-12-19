@@ -2,19 +2,28 @@
     'use strict';
 
     function Tooltip(el) {
-        this.$el = el;
+        this.$el = $(el);
         this._generate();
     }
 
     Tooltip.prototype._generate = function() {
+
+        var _this = this;
         
-        this.$toolTip = $('<div>Tooltip</div>');
+        this.$toolTip = $('<div>Tooltip</div>').css('position', 'absolute');
 
         $('body').append(this.$toolTip);
 
         this._setColor('red');
         
         this.$initialized = true;
+
+        this.$el.mousemove(elMouseMove);
+
+        function elMouseMove(e) {
+            console.log("Mouse Moveed" + e);
+            _this.$toolTip.css({left: e.pageX, top: e.pageY});
+        }
     }
 
     Tooltip.prototype._destroy = function() {
