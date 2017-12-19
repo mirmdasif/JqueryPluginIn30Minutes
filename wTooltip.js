@@ -1,49 +1,58 @@
 (function($) {
     'use strict';
 
-    function Tooltip(el) {
+    function Tooltip(el, message) {
         this.$el = $(el);
+        this.$message = message;
         this._generate();
     }
 
-    Tooltip.prototype._generate = function() {
+    Tooltip.prototype = {
 
-        var _this = this;
-        
-        this.$toolTip = $('<div>Tooltip</div>').css('position', 'absolute');
+        _generate : function() {
 
-        $('body').append(this.$toolTip);
-
-        this._setColor('red');
-        
-        this.$initialized = true;
-
-        this.$el.mousemove(elMouseMove);
-
-        function elMouseMove(e) {
-            _this.$toolTip.css({left: e.pageX, top: e.pageY});
-        }
-    }
-
-    Tooltip.prototype._destroy = function() {
-        
-        this.$toolTip.remove();
-        
-        $.removeData(this.$el, 'wTooltip');
-    }
-
-    Tooltip.prototype._setColor = function(color) {
-        
-        this.$toolTip.css('color', color);
-
-        if(this.initialized) {
+            var _this = this;
             
+            this.$toolTip = $('<div></div>').text(this.$message)
+                                            .css('position', 'absolute')
+                                            .hide();
+
+            $('body').append(this.$toolTip);
+
+            this._setColor('red');
+
+            this.$el.mousemove(elMouseMove);
+            this.$el.hover(elMouseEnter, elMouseLeave);
+
+            function elMouseMove(e) {
+                _this.$toolTip.css({left: e.pageX + 3, top: e.pageY + 3});
+            }
+
+            function elMouseEnter() {
+                _this.$toolTip.show();
+            }
+
+            function elMouseLeave() {
+                _this.$toolTip.hide();
+            }
+        }, 
+        
+        _destroy : function() {
+        
+            this.$toolTip.remove();
+            
+            $.removeData(this.$el, 'wTooltip');
+        },
+
+        _setColor : function(color) {
+            
+            this.$toolTip.css('color', color);
         }
     };
 
-    $.fn.wTooltip = function() {
+    $.fn.wTooltip = function(message) {
         function get() {
-            return $.data(this, 'wTooltip') || $.data(this, 'wTooltip', new Tooltip(this));
+            return $.data(this, 'wTooltip') || $.data(this, 'wTooltip', new Tooltip(this, message));
         }
 
         return this.each(get);
