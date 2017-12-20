@@ -1,9 +1,10 @@
 (function($) {
     'use strict';
 
-    function Tooltip(el, message) {
+    function Tooltip(el, option) {
         this.$el = $(el);
-        this.$message = message;
+        this.option = option;
+
         this._generate();
     }
 
@@ -12,14 +13,15 @@
         _generate : function() {
 
             var _this = this;
-            
-            this.$toolTip = $('<div></div>').text(this.$message)
-                                            .css('position', 'absolute')
+            console.log(this.option);
+            this.$toolTip = $('<div></div>').css('position', 'absolute')
                                             .hide();
 
             $('body').append(this.$toolTip);
 
-            this._setColor('red');
+            this.setColor(this.option.color);
+            this.setOpacity(this.option.opacity);
+            this.setTitle(this.$el.attr('title') || this.option.title);
 
             this.$el.mousemove(elMouseMove);
             this.$el.hover(elMouseEnter, elMouseLeave);
@@ -44,19 +46,38 @@
             $.removeData(this.$el, 'wTooltip');
         },
 
-        _setColor : function(color) {
+        setColor : function(color) {
             
             this.$toolTip.css('color', color);
+        },
+
+        setTitle : function(title) {
+            this.$toolTip.html(title);
+        },
+
+        setOpacity : function(opacity) {
+            this.$toolTip.css('opacity', opacity);
         }
     };
 
-    $.fn.wTooltip = function(message) {
+
+    $.fn.wTooltip = function(option) {
+        var defaults = {
+            theme : 'classic',
+            opacity : .8,
+            color : 'red',
+            title : 'Tooltip'
+        };
+
+        option = $.extend({}, defaults, option);
+        
         function get() {
-            return $.data(this, 'wTooltip') || $.data(this, 'wTooltip', new Tooltip(this, message));
+            return $.data(this, 'wTooltip') || $.data(this, 'wTooltip', new Tooltip(this, $.extend(true, {}, option)));
         }
 
         return this.each(get);
     };
+
 
     $.fn.opacity50 = function() {
         function get() {
