@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
     'use strict';
 
     function Tooltip(el, option) {
@@ -10,7 +10,7 @@
 
     Tooltip.prototype = {
 
-        _generate : function() {
+        _generate: function () {
 
             var _this = this;
 
@@ -23,7 +23,10 @@
             this.$el.hover(elMouseEnter, elMouseLeave);
 
             function elMouseMove(e) {
-                _this.$toolTip.css({left: e.pageX + 3, top: e.pageY + 3});
+                _this.$toolTip.css({
+                    left: e.pageX + 3,
+                    top: e.pageY + 3
+                });
             }
 
             function elMouseEnter() {
@@ -33,56 +36,50 @@
             function elMouseLeave() {
                 _this.$toolTip.hide();
             }
-        }, 
-        
-        _destroy : function() {
-        
+        },
+
+        _destroy: function () {
+
             this.$toolTip.remove();
-            
+
             $.removeData(this.$el, 'wTooltip');
         },
 
-        _setOptions : function () {
-
-            console.log(this.option);
-            for(var opt in this.option) {
+        _setOptions: function () {
+            for (var opt in this.option) {
                 var optionValue = this.$el.attr('data-' + opt) || this.option[opt];
-                
-                console.log('Option: ' + opt + ' value: ' + optionValue);
-
-                var setter = 'set' + opt.charAt(0).toUpperCase() + opt.substring(1) ;
+                var setter = 'set' + opt.charAt(0).toUpperCase() + opt.substring(1);
                 if (this[setter]) {
-                    this[setter](optionValue);           
+                    this[setter](optionValue);
                 }
             }
         },
 
-        setColor : function(color) {
-            
+        setColor: function (color) {
+
             this.$toolTip.css('color', color);
         },
 
-        setTitle : function(title) {
+        setTitle: function (title) {
             this.$toolTip.html(title);
         },
 
-        setOpacity : function(opacity) {
-            console.log(this)
+        setOpacity: function (opacity) {
             this.$toolTip.css('opacity', opacity);
         }
     };
 
 
-    $.fn.wTooltip = function(option) {
+    $.fn.wTooltip = function (option) {
         var defaults = {
-            theme : 'classic',
-            opacity : .8,
-            color : 'red',
-            title : 'Tooltip'
+            theme: 'classic',
+            opacity: .8,
+            color: 'red',
+            title: 'Tooltip'
         };
 
         option = $.extend({}, defaults, option);
-        
+
         function get() {
             return $.data(this, 'wTooltip') || $.data(this, 'wTooltip', new Tooltip(this, $.extend(true, {}, option)));
         }
@@ -91,11 +88,11 @@
     };
 
 
-    $.fn.opacity50 = function() {
+    $.fn.opacity50 = function () {
         function get() {
             $(this).css('opacity', 0.5);
         }
 
-        return $(this).each(get);  
+        return $(this).each(get);
     }
 })(jQuery);
