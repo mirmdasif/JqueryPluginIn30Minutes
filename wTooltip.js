@@ -13,15 +13,11 @@
         _generate : function() {
 
             var _this = this;
-            console.log(this.option);
-            this.$toolTip = $('<div></div>').css('position', 'absolute')
-                                            .hide();
 
+            this.$toolTip = $('<div></div>').css('position', 'absolute').hide();
             $('body').append(this.$toolTip);
 
-            this.setColor(this.option.color);
-            this.setOpacity(this.option.opacity);
-            this.setTitle(this.$el.attr('title') || this.option.title);
+            this._setOptions();
 
             this.$el.mousemove(elMouseMove);
             this.$el.hover(elMouseEnter, elMouseLeave);
@@ -46,6 +42,21 @@
             $.removeData(this.$el, 'wTooltip');
         },
 
+        _setOptions : function () {
+
+            console.log(this.option);
+            for(var opt in this.option) {
+                var optionValue = this.$el.attr('data-' + opt) || this.option[opt];
+                
+                console.log('Option: ' + opt + ' value: ' + optionValue);
+
+                var setter = 'set' + opt.charAt(0).toUpperCase() + opt.substring(1) ;
+                if (this[setter]) {
+                    this[setter](optionValue);           
+                }
+            }
+        },
+
         setColor : function(color) {
             
             this.$toolTip.css('color', color);
@@ -56,6 +67,7 @@
         },
 
         setOpacity : function(opacity) {
+            console.log(this)
             this.$toolTip.css('opacity', opacity);
         }
     };
