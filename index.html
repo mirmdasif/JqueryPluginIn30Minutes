@@ -7,9 +7,12 @@
         </h1>
         <h2 id="header2" class="opacity50">Hello Jquery Plugin Live Reload</h2>
         <h3 id="header3" class="opacity50">Hello Jquery Plugin</h3>
+        <div id='buttonContainer'></div>
     </body>
     <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script type="text/javascript" src="wTooltip.js"></script>
+    <script type="text/javascript" src="buttonWiget.js"></script>
 
     <script type="text/javascript">
         $(function() {
@@ -38,6 +41,8 @@
             console.log($('#header1').data('wTooltip'));
             $('#header1').wTooltip({opacity : .5, color : 'purple', title : "It's the main header of the page"});
             console.log($('#header1').data('wTooltip'));
+            
+            $('#buttonContainer').buttonWidget();
         });
     </script>
 </html>
